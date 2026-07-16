@@ -7,5 +7,6 @@ requires-python = ">=3.13"
 dependencies = [
     "jupyterlab>=4.6.1",
     "numpy>=2.5.1",
+    "opencv-python>=5.0.0.93",
     "requests>=2.34.2",
 ]

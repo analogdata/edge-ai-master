@@ -19,7 +19,7 @@ counter = 0   # shared variable
 
 def add_one():
     global counter
-    for _ in range(100000):
+    for _ in range(100000000):
         counter = counter + 1   # both threads do this at the same time
 
 

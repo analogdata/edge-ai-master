@@ -9,12 +9,14 @@ under its own key. Since each thread writes to a DIFFERENT key,
 there's no race condition and no lock needed.
 """
 import threading
+import time
 
 results = {}   # shared dictionary to store results
 
 
 def square(number):
     results[number] = number * number
+    time.sleep(1)
 
 
 threads = []
