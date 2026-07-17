@@ -1,0 +1,97 @@
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Inference service started
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 0 captured: latency_ms=11.6
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 0 done: class=person confidence=0.668 latency_ms=11.6
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 1 captured: latency_ms=23.4
+2026-07-17 18:34:47 | ERROR    | edge_ai_app | High latency on frame 1: 23.4ms — possible frame drop
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 1 done: class=person confidence=0.959 latency_ms=23.4
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 2 captured: latency_ms=11.9
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 2 done: class=person confidence=0.877 latency_ms=11.9
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 3 captured: latency_ms=8.4
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 3 done: class=person confidence=0.609 latency_ms=8.4
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 4 captured: latency_ms=12.6
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 4 done: class=person confidence=0.754 latency_ms=12.6
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 5 captured: latency_ms=20.9
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 5 done: class=person confidence=0.720 latency_ms=20.9
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 6 captured: latency_ms=18.4
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 6 done: class=person confidence=0.960 latency_ms=18.4
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 7 captured: latency_ms=8.5
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 7 done: class=person confidence=0.728 latency_ms=8.5
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 8 captured: latency_ms=9.9
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 8 done: class=person confidence=0.630 latency_ms=9.9
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 9 captured: latency_ms=13.8
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 9 done: class=person confidence=0.688 latency_ms=13.8
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 10 captured: latency_ms=23.7
+2026-07-17 18:34:47 | ERROR    | edge_ai_app | High latency on frame 10: 23.7ms — possible frame drop
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 10 done: class=person confidence=0.633 latency_ms=23.7
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 11 captured: latency_ms=24.3
+2026-07-17 18:34:47 | ERROR    | edge_ai_app | High latency on frame 11: 24.3ms — possible frame drop
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 11 done: class=person confidence=0.772 latency_ms=24.3
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 12 captured: latency_ms=24.3
+2026-07-17 18:34:47 | ERROR    | edge_ai_app | High latency on frame 12: 24.3ms — possible frame drop
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 12 done: class=person confidence=0.819 latency_ms=24.3
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 13 captured: latency_ms=24.1
+2026-07-17 18:34:47 | ERROR    | edge_ai_app | High latency on frame 13: 24.1ms — possible frame drop
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 13 done: class=person confidence=0.825 latency_ms=24.1
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 14 captured: latency_ms=8.9
+2026-07-17 18:34:47 | WARNING  | edge_ai_app | Low confidence on frame 14: 0.548
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 14 done: class=person confidence=0.548 latency_ms=8.9
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 15 captured: latency_ms=24.0
+2026-07-17 18:34:47 | ERROR    | edge_ai_app | High latency on frame 15: 24.0ms — possible frame drop
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 15 done: class=person confidence=0.961 latency_ms=24.0
+2026-07-17 18:34:47 | DEBUG    | edge_ai_app | Frame 16 captured: latency_ms=19.9
+2026-07-17 18:34:47 | INFO     | edge_ai_app | Frame 16 done: class=person confidence=0.939 latency_ms=19.9
+2026-07-17 18:34:48 | DEBUG    | edge_ai_app | Frame 17 captured: latency_ms=12.6
+2026-07-17 18:34:48 | WARNING  | edge_ai_app | Low confidence on frame 17: 0.549
+2026-07-17 18:34:48 | INFO     | edge_ai_app | Frame 17 done: class=person confidence=0.549 latency_ms=12.6
+2026-07-17 18:34:48 | DEBUG    | edge_ai_app | Frame 18 captured: latency_ms=16.4
+2026-07-17 18:34:48 | INFO     | edge_ai_app | Frame 18 done: class=person confidence=0.727 latency_ms=16.4
+2026-07-17 18:34:48 | DEBUG    | edge_ai_app | Frame 19 captured: latency_ms=11.4
+2026-07-17 18:34:48 | INFO     | edge_ai_app | Frame 19 done: class=person confidence=0.692 latency_ms=11.4
+2026-07-17 18:34:48 | INFO     | edge_ai_app | Inference loop complete — processed 20 frames
+2026-07-17 18:35:14 | INFO     | edge_ai_app | Inference service started
+2026-07-17 18:35:14 | DEBUG    | edge_ai_app | Frame 0 captured: latency_ms=20.7
+2026-07-17 18:35:14 | WARNING  | edge_ai_app | Low confidence on frame 0: 0.512
+2026-07-17 18:35:14 | INFO     | edge_ai_app | Frame 0 done: class=person confidence=0.512 latency_ms=20.7
+2026-07-17 18:35:14 | DEBUG    | edge_ai_app | Frame 1 captured: latency_ms=11.9
+2026-07-17 18:35:14 | INFO     | edge_ai_app | Frame 1 done: class=person confidence=0.709 latency_ms=11.9
+2026-07-17 18:35:14 | DEBUG    | edge_ai_app | Frame 2 captured: latency_ms=16.7
+2026-07-17 18:35:14 | INFO     | edge_ai_app | Frame 2 done: class=person confidence=0.798 latency_ms=16.7
+2026-07-17 18:35:14 | DEBUG    | edge_ai_app | Frame 3 captured: latency_ms=20.0
+2026-07-17 18:35:14 | INFO     | edge_ai_app | Frame 3 done: class=person confidence=0.766 latency_ms=20.0
+2026-07-17 18:35:14 | DEBUG    | edge_ai_app | Frame 4 captured: latency_ms=17.5
+2026-07-17 18:35:14 | INFO     | edge_ai_app | Frame 4 done: class=person confidence=0.790 latency_ms=17.5
+2026-07-17 18:35:14 | DEBUG    | edge_ai_app | Frame 5 captured: latency_ms=22.1
+2026-07-17 18:35:14 | ERROR    | edge_ai_app | High latency on frame 5: 22.1ms — possible frame drop
+2026-07-17 18:35:14 | INFO     | edge_ai_app | Frame 5 done: class=person confidence=0.732 latency_ms=22.1
+2026-07-17 18:35:14 | DEBUG    | edge_ai_app | Frame 6 captured: latency_ms=13.4
+2026-07-17 18:35:14 | INFO     | edge_ai_app | Frame 6 done: class=person confidence=0.643 latency_ms=13.4
+2026-07-17 18:35:14 | DEBUG    | edge_ai_app | Frame 7 captured: latency_ms=19.7
+2026-07-17 18:35:14 | INFO     | edge_ai_app | Frame 7 done: class=person confidence=0.981 latency_ms=19.7
+2026-07-17 18:35:14 | DEBUG    | edge_ai_app | Frame 8 captured: latency_ms=18.3
+2026-07-17 18:35:14 | WARNING  | edge_ai_app | Low confidence on frame 8: 0.591
+2026-07-17 18:35:14 | INFO     | edge_ai_app | Frame 8 done: class=person confidence=0.591 latency_ms=18.3
+2026-07-17 18:35:14 | DEBUG    | edge_ai_app | Frame 9 captured: latency_ms=17.4
+2026-07-17 18:35:14 | INFO     | edge_ai_app | Frame 9 done: class=person confidence=0.657 latency_ms=17.4
+2026-07-17 18:35:15 | DEBUG    | edge_ai_app | Frame 10 captured: latency_ms=10.1
+2026-07-17 18:35:15 | INFO     | edge_ai_app | Frame 10 done: class=person confidence=0.649 latency_ms=10.1
+2026-07-17 18:35:15 | DEBUG    | edge_ai_app | Frame 11 captured: latency_ms=18.5
+2026-07-17 18:35:15 | INFO     | edge_ai_app | Frame 11 done: class=person confidence=0.844 latency_ms=18.5
+2026-07-17 18:35:15 | DEBUG    | edge_ai_app | Frame 12 captured: latency_ms=11.9
+2026-07-17 18:35:15 | INFO     | edge_ai_app | Frame 12 done: class=person confidence=0.673 latency_ms=11.9
+2026-07-17 18:35:15 | DEBUG    | edge_ai_app | Frame 13 captured: latency_ms=16.9
+2026-07-17 18:35:15 | INFO     | edge_ai_app | Frame 13 done: class=person confidence=0.612 latency_ms=16.9
+2026-07-17 18:35:15 | DEBUG    | edge_ai_app | Frame 14 captured: latency_ms=17.6
+2026-07-17 18:35:15 | WARNING  | edge_ai_app | Low confidence on frame 14: 0.591
+2026-07-17 18:35:15 | INFO     | edge_ai_app | Frame 14 done: class=person confidence=0.591 latency_ms=17.6
+2026-07-17 18:35:15 | DEBUG    | edge_ai_app | Frame 15 captured: latency_ms=10.6
+2026-07-17 18:35:15 | INFO     | edge_ai_app | Frame 15 done: class=person confidence=0.885 latency_ms=10.6
+2026-07-17 18:35:15 | DEBUG    | edge_ai_app | Frame 16 captured: latency_ms=18.0
+2026-07-17 18:35:15 | INFO     | edge_ai_app | Frame 16 done: class=person confidence=0.767 latency_ms=18.0
+2026-07-17 18:35:15 | DEBUG    | edge_ai_app | Frame 17 captured: latency_ms=10.2
+2026-07-17 18:35:15 | WARNING  | edge_ai_app | Low confidence on frame 17: 0.569
+2026-07-17 18:35:15 | INFO     | edge_ai_app | Frame 17 done: class=person confidence=0.569 latency_ms=10.2
+2026-07-17 18:35:15 | DEBUG    | edge_ai_app | Frame 18 captured: latency_ms=9.7
+2026-07-17 18:35:15 | INFO     | edge_ai_app | Frame 18 done: class=person confidence=0.896 latency_ms=9.7
+2026-07-17 18:35:15 | DEBUG    | edge_ai_app | Frame 19 captured: latency_ms=21.1
+2026-07-17 18:35:15 | INFO     | edge_ai_app | Frame 19 done: class=person confidence=0.973 latency_ms=21.1
+2026-07-17 18:35:15 | INFO     | edge_ai_app | Inference loop complete — processed 20 frames
