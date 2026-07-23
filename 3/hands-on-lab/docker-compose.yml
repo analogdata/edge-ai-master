@@ -1,0 +1,48 @@
+# ─────────────────────────────────────────────────────────────────
+# docker-compose.yml — Lab Inference Service
+# Analog Data — EdgeAI Engineering Bootcamp (Hands-on Lab, Part C)
+#
+# Defines a single inference service with:
+#   - restart: always (auto-restart on crash)
+#   - volumes (mount model files from host)
+#   - resource limits (mem_limit and cpus to protect the Pi)
+#
+# Commands:
+#   docker compose build         — build the image
+#   docker compose up -d         — start in background
+#   docker compose ps            — check status
+#   docker compose logs -f       — watch logs live
+#   docker compose down          — stop and remove container
+# ─────────────────────────────────────────────────────────────────
+
+version: "3.9"
+
+services:
+  inference:
+    # Build from the Dockerfile in the current directory
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Fixed container name for easy reference
+    container_name: edgeai_lab
+
+    # Auto-restart on crash (equivalent to systemd Restart=always)
+    restart: always
+
+    # Environment variables — override the Dockerfile ENV defaults
+    environment:
+      - MODEL_PATH=/app/models/model.tflite
+      - LOG_LEVEL=INFO
+      - INFERENCE_INTERVAL=2.0
+
+    # Mount the models directory from the Pi into the container
+    # Changes on the host are immediately visible inside the container
+    volumes:
+      - ./models:/app/models
+
+    # Resource limits — critical on a Raspberry Pi
+    # If this container leaks memory, it gets killed (OOM) and restarted
+    # instead of crashing the entire Pi
+    mem_limit: 256m
+    cpus: "1.0"

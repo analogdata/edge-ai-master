@@ -1,0 +1,56 @@
+# ─────────────────────────────────────────────────────────────────
+# docker-compose-mqtt.yml — Extension Task 1: Add MQTT Broker
+# Analog Data — EdgeAI Engineering Bootcamp (Hands-on Lab, Extension)
+#
+# This is an EXTENSION of the base docker-compose.yml.
+# It adds an Eclipse Mosquitto MQTT broker alongside the inference service.
+#
+# Usage:
+#   docker compose -f docker-compose-mqtt.yml up -d
+#   docker compose -f docker-compose-mqtt.yml ps
+#   docker compose -f docker-compose-mqtt.yml logs -f
+#   docker compose -f docker-compose-mqtt.yml down
+# ─────────────────────────────────────────────────────────────────
+
+version: "3.9"
+
+services:
+  # ──────────────────────────────────────────────
+  # 1. Inference Engine (same as base compose)
+  # ──────────────────────────────────────────────
+  inference:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: edgeai_lab
+    restart: always
+    depends_on:
+      - mqtt # wait for MQTT broker to start first
+    environment:
+      - MODEL_PATH=/app/models/model.tflite
+      - LOG_LEVEL=INFO
+      - INFERENCE_INTERVAL=2.0
+      # The inference container can reach the broker using the
+      # service name "mqtt" as the hostname (Docker's internal DNS)
+      - MQTT_BROKER=mqtt
+      - MQTT_PORT=1883
+    volumes:
+      - ./models:/app/models
+    mem_limit: 256m
+    cpus: "1.0"
+
+  # ──────────────────────────────────────────────
+  # 2. MQTT Broker (Eclipse Mosquitto)
+  # Extension task: verify it starts alongside inference
+  # ──────────────────────────────────────────────
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    container_name: mqtt_broker_lab
+    restart: always
+    ports:
+      - "1883:1883" # MQTT protocol port
+    # Mosquitto needs a config file to allow anonymous connections
+    # By default, Mosquitto 2.0 only listens on localhost
+    command: mosquitto -c /mosquitto-no-auth.conf
+    mem_limit: 64m
+    cpus: "0.25"

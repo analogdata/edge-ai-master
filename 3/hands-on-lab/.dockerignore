@@ -1,0 +1,41 @@
+# .dockerignore — Exclude files from the Docker build context
+# Analog Data — EdgeAI Engineering Bootcamp (Hands-on Lab, Part C)
+#
+# Docker sends ALL files in the build context to the daemon before building.
+# This file excludes files that should never be in the image.
+
+# Secrets — NEVER include these in a Docker image
+.env
+
+# Git repository — can be very large
+.git
+
+# Python cache files
+__pycache__
+*.pyc
+*.egg-info
+
+# Virtual environments
+venv/
+
+# Log files
+*.log
+logs/
+
+# Backup files
+backups/
+
+# systemd service file — not needed inside the container
+edgeai.service
+
+# Crash test scripts — not needed inside the container
+crash_test_systemd.py
+crash_test_docker.py
+
+# This .dockerignore itself
+.dockerignore
+
+# Docker files — not needed inside the image
+Dockerfile
+docker-compose.yml
+docker-compose-mqtt.yml

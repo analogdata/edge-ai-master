@@ -1,0 +1,11 @@
+# Python dependencies for the lab inference script
+# Analog Data — EdgeAI Engineering Bootcamp (Hands-on Lab)
+#
+# For the lab, we have no external pip packages — the script uses
+# only the Python standard library (os, sys, time, signal, logging).
+#
+# As you build the real app, add packages here:
+#   tflite-runtime   — to run the actual TFLite model
+#   paho-mqtt        — to publish inference results to an MQTT broker
+#   numpy            — for array operations (model input/output)
+#   requests         — to send results to an HTTP API

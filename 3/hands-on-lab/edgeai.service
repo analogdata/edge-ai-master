@@ -1,0 +1,69 @@
+# ─────────────────────────────────────────────────────────────────
+# systemd Service File — Edge AI Inference Service (Lab)
+# Analog Data — EdgeAI Engineering Bootcamp (Hands-on Lab, Part B)
+#
+# Install on the Raspberry Pi:
+#   sudo cp edgeai.service /etc/systemd/system/edgeai.service
+#   sudo systemctl daemon-reload
+#   sudo systemctl start edgeai
+#   sudo systemctl status edgeai
+#   sudo systemctl enable edgeai    # auto-start at boot
+# ─────────────────────────────────────────────────────────────────
+
+[Unit]
+# Human-readable description shown in systemctl status
+Description=Edge AI Inference Service — Lab
+
+# Start after the network is up (in case you fetch models over network)
+After=network.target
+
+# Prevent infinite restart loops: if the service crashes 5 times
+# within 60 seconds, systemd stops trying and marks it as failed.
+# This protects against a broken script that crashes immediately.
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+# Type=simple: systemd considers the service started as soon as
+# the ExecStart command is launched (no complex readiness protocol)
+Type=simple
+
+# Run as the 'pi' user (not root) for security
+User=pi
+
+# Working directory — relative paths in the script resolve from here
+WorkingDirectory=/home/pi/edgeai
+
+# Load environment variables from .env before starting the script
+# Each line in .env becomes an environment variable
+EnvironmentFile=/home/pi/edgeai/.env
+
+# Pre-start check: verify the model file exists before starting
+# If this fails, systemd won't start the service
+ExecStartPre=/bin/bash -c 'test -f /home/pi/edgeai/models/model.tflite'
+
+# The main command — run the inference script
+ExecStart=/usr/bin/python3 /home/pi/edgeai/inference.py
+
+# Restart automatically if the process exits for any reason
+# (crash, OOM kill, signal, etc.)
+Restart=always
+
+# Wait 5 seconds before restarting after a crash
+# This prevents rapid restart loops and gives the system time to recover
+RestartSec=5
+
+# Give the process 10 seconds to shut down gracefully after SIGTERM
+# If it doesn't exit in 10 seconds, systemd sends SIGKILL
+TimeoutStopSec=10
+
+# Send stdout and stderr to the journal (viewable with journalctl)
+StandardOutput=journal
+StandardError=journal
+
+# Tag log entries with 'edgeai' so you can filter: journalctl -u edgeai
+SyslogIdentifier=edgeai
+
+[Install]
+# Enable auto-start at boot in the default runlevel
+WantedBy=multi-user.target
