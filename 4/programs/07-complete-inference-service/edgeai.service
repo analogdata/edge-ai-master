@@ -1,0 +1,27 @@
+# /etc/systemd/system/edgeai.service
+# Edge AI Inference Service
+# Analog Data — EdgeAI Engineering Bootcamp
+
+[Unit]
+Description=Edge AI Inference Service
+After=network.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/edgeai
+EnvironmentFile=/home/pi/edgeai/.env
+ExecStartPre=/bin/bash -c 'test -f /home/pi/edgeai/models/model.tflite'
+ExecStart=/usr/bin/python3 /home/pi/edgeai/inference.py
+ExecStop=/bin/kill -SIGTERM $MAINPID
+Restart=always
+RestartSec=5
+TimeoutStopSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=edgeai
+
+[Install]
+WantedBy=multi-user.target

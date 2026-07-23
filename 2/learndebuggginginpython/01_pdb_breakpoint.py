@@ -26,6 +26,7 @@ import numpy as np
 def preprocess(frame):
     """Simulate image preprocessing for an Edge AI inference pipeline."""
     frame = frame.astype("float32")
+    d = {'frame': "This is a test", "processed": False}
     breakpoint()  # execution pauses here — inspect 'frame'
     frame = frame / 255.0  # normalise to [0, 1]
     frame = np.resize(frame, (224, 224, 3))  # resize for model input
@@ -34,6 +35,8 @@ def preprocess(frame):
 
 def run_inference(frame):
     """Simulate a model inference call."""
+    vp = [1,2,3]
+    breakpoint()
     result = {"class": "person", "confidence": 0.92, "latency_ms": 14.3}
     return result
 
