@@ -1,0 +1,125 @@
+# ─────────────────────────────────────────────────────────────────
+# docker-compose.yml — Edge AI Stack
+# Analog Data — EdgeAI Engineering Bootcamp (Part 6)
+#
+# Defines 4 services that run together as one application:
+#   1. MQTT Broker (Eclipse Mosquitto) — receives sensor data
+#   2. Inference Engine (Python app)   — runs the TFLite model
+#   3. FastAPI Server                  — exposes results as REST API
+#   4. SQLite Backup Service           — periodically backs up the DB
+#
+# Start everything:  docker compose up -d
+# Stop everything:   docker compose down
+# View logs:         docker compose logs -f inference
+# Check status:      docker compose ps
+# ─────────────────────────────────────────────────────────────────
+
+version: "3.9"
+
+services:
+  # ──────────────────────────────────────────────
+  # 1. MQTT Broker (Eclipse Mosquitto)
+  # Receives messages from sensors, distributes them to the inference engine
+  # Very lightweight — needs minimal resources
+  # ──────────────────────────────────────────────
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    container_name: mqtt_broker
+    restart: always
+    ports:
+      - "1883:1883" # MQTT protocol port
+      - "9001:9001" # WebSocket port (optional, for web-based clients)
+    volumes:
+      - ./mosquitto/config:/mosquitto/config # configuration files
+      - ./mosquitto/data:/mosquitto/data # persistent message data
+      - ./mosquitto/log:/mosquitto/log # log files
+    mem_limit: 64m # MQTT broker is lightweight — 64MB is plenty
+    cpus: "0.25" # use at most 25% of one CPU core
+
+  # ──────────────────────────────────────────────
+  # 2. Inference Engine (your Python app)
+  # Reads frames, runs the TFLite model, publishes results to MQTT
+  # Needs more resources than the broker because of the model
+  # ──────────────────────────────────────────────
+  inference:
+    build:
+      context: . # look for Dockerfile in current directory
+      dockerfile: Dockerfile
+    container_name: edgeai_inference
+    restart: always
+    depends_on:
+      - mqtt # wait for MQTT broker to start first
+    environment:
+      - MODEL_PATH=/app/models/model.tflite
+      - MQTT_BROKER=mqtt # use the service name — Docker's DNS resolves it
+      - MQTT_PORT=1883
+      - MQTT_TOPIC=sensors/inference
+      - LOG_LEVEL=INFO
+      - CONFIDENCE_THRESHOLD=0.75
+    volumes:
+      - ./models:/app/models # mount model files from host
+      - inference_data:/app/data # named volume for persistent results
+    mem_limit: 512m # inference needs more memory for the model
+    cpus: "1.5" # allow up to 1.5 CPU cores
+    # devices:
+    #   - /dev/video0:/dev/video0  # pass camera through to container (uncomment if using a camera)
+
+  # ──────────────────────────────────────────────
+  # 3. FastAPI Server
+  # Exposes inference results as a REST API
+  # Other systems can query: GET /results/latest
+  # ──────────────────────────────────────────────
+  api:
+    build:
+      context: ./api # look for Dockerfile in ./api subfolder
+      dockerfile: Dockerfile
+    container_name: edgeai_api
+    restart: always
+    depends_on:
+      - inference
+      - mqtt
+    ports:
+      - "8000:8000" # expose API on port 8000 of the Pi
+    environment:
+      - MQTT_BROKER=mqtt
+      - DB_PATH=/app/db/results.db
+      - API_KEY=${API_KEY} # read from .env file on the host
+    volumes:
+      - inference_data:/app/db # shared named volume with inference container
+    mem_limit: 256m
+    cpus: "0.5"
+
+  # ──────────────────────────────────────────────
+  # 4. SQLite Backup Service
+  # Periodically backs up the SQLite database to a safe location
+  # Uses Alpine Linux — extremely small image (~5MB)
+  # ──────────────────────────────────────────────
+  db_backup:
+    image: alpine:3.18
+    container_name: db_backup
+    restart: always
+    volumes:
+      - inference_data:/data # access the same named data volume
+      - ./backups:/backups # write backups here on the host filesystem
+    # This command runs an infinite loop that:
+    #   1. Copies the SQLite DB to a timestamped backup file
+    #   2. Prints a message
+    #   3. Sleeps for 1 hour (3600 seconds)
+    #   4. Repeats
+    command: >
+      sh -c "while true; do
+        cp /data/results.db /backups/results_$(date +%Y%m%d_%H%M).db;
+        echo 'Backup complete';
+        sleep 3600;
+      done"
+    mem_limit: 32m
+    cpus: "0.1"
+
+# ──────────────────────────────────────────────
+# Named volumes — Docker manages these
+# Data persists even when containers are removed
+# The volume is shared between the inference and api services
+# ──────────────────────────────────────────────
+volumes:
+  inference_data:
+    driver: local

@@ -1,0 +1,52 @@
+# ─────────────────────────────────────────────────────────────────
+# 05 — First Docker Compose (Simplest Possible)
+# Analog Data — EdgeAI Engineering Bootcamp
+#
+# This is the SIMPLEST docker-compose.yml possible — just ONE service.
+#
+# What is Docker Compose?
+#   Instead of typing long `docker run` commands with many flags,
+#   you describe everything in this YAML file and start it all with
+#   one command: `docker compose up`
+#
+# Think of it as a "recipe" for your entire application — all the
+# containers, their settings, and how they connect — in one file.
+#
+# Commands:
+#   docker compose up        — start in foreground (see logs)
+#   docker compose up -d     — start in background (detached)
+#   docker compose down      — stop and remove containers
+#   docker compose logs      — view all logs
+#   docker compose logs -f   — watch logs live
+#   docker compose ps        — check status
+# ─────────────────────────────────────────────────────────────────
+
+# 'version' specifies the Compose file format version
+# 3.9 is a widely supported version
+version: "3.9"
+
+# 'services' is where you define your containers
+# Each key under services is the name of a service
+services:
+  # This service is named "myapp"
+  # You can name it anything — this name is used in docker compose commands
+  # and as the hostname when other services need to talk to it
+  myapp:
+    # 'build' tells Docker Compose to build the image from a Dockerfile
+    # '.' means "look for a Dockerfile in the current directory"
+    build: .
+
+    # 'container_name' gives the container a fixed name
+    # Without this, Docker generates a name like "folder-myapp-1"
+    container_name: my-first-compose-app
+
+    # 'restart' controls what happens when the container exits
+    #   always    — always restart (even if it crashed)
+    #   on-failure — restart only on non-zero exit code
+    #   no        — don't restart (default)
+    restart: always
+
+    # 'environment' sets environment variables inside the container
+    # Same as `docker run -e GREETING="..." `
+    environment:
+      - GREETING=Hello from Docker Compose!

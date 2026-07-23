@@ -1,0 +1,8 @@
+# Python dependencies for the inference engine
+# Used in the Docker Compose stack (Part 6)
+
+# MQTT client library — publishes inference results to the broker
+paho-mqtt>=2.1.0
+
+# NumPy — array operations for model input/output processing
+numpy>=1.26.0

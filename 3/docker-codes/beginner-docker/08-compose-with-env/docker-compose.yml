@@ -1,0 +1,53 @@
+# ─────────────────────────────────────────────────────────────────
+# 08 — Compose with Environment Variables and .env
+# Analog Data — EdgeAI Engineering Bootcamp
+#
+# This docker-compose.yml demonstrates THREE ways to set
+# environment variables:
+#
+#   1. 'environment' section — set values directly in the YAML
+#   2. ${VAR} syntax         — read from the .env file
+#   3. env_file              — load an entire file of variables
+#
+# The .env file is AUTOMATICALLY loaded by Docker Compose when it's
+# in the same directory as docker-compose.yml. You don't need to
+# reference it explicitly — just use ${VAR_NAME} in the compose file.
+#
+# Commands:
+#   docker compose up          — start and see the config
+#   docker compose up -d       — start in background
+#   docker compose down        — stop and remove
+# ─────────────────────────────────────────────────────────────────
+
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: env-demo-app
+    restart: always
+    environment:
+      # ──────────────────────────────────────────────
+      # Method 1: Set values directly in the YAML
+      # These override the ENV defaults from the Dockerfile
+      # ──────────────────────────────────────────────
+      - APP_NAME=my-env-app
+      - ENVIRONMENT=production
+      - POLL_INTERVAL=3
+
+      # ──────────────────────────────────────────────
+      # Method 2: Read from .env file using ${VAR_NAME}
+      # Docker Compose automatically loads .env from the
+      # same directory as this file.
+      # The .env file contains:  API_KEY=your_secret_key
+      # ──────────────────────────────────────────────
+      - API_KEY=${API_KEY}
+      - DATABASE_URL=${DATABASE_URL}
+
+      # ──────────────────────────────────────────────
+      # Method 3 (alternative): Load an entire file
+      # Uncomment to use. Each line in the file becomes
+      # an environment variable.
+      # ──────────────────────────────────────────────
+      # env_file:
+      #   - .env

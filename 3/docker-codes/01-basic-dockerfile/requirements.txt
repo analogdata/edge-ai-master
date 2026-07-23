@@ -1,0 +1,13 @@
+# Python dependencies for the Edge AI inference engine
+# These are installed inside the Docker container during build
+
+# MQTT client library — used to publish inference results to the broker
+paho-mqtt>=2.1.0
+
+# NumPy — used for array operations when processing model inputs/outputs
+numpy>=1.26.0
+
+# Note: tflite-runtime is not included here because it often needs
+# to be compiled from source on ARM64. In the multi-stage Dockerfile
+# (Part 5), we install build tools (gcc, g++) to compile it.
+# For this basic example, we simulate inference without the actual model.

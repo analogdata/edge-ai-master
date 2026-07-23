@@ -1,0 +1,68 @@
+# ─────────────────────────────────────────────────────────────────
+# 06 — Two Service Compose (Producer + Consumer)
+# Analog Data — EdgeAI Engineering Bootcamp
+#
+# This docker-compose.yml defines TWO services that share data:
+#   1. producer  — generates sensor readings, writes to a shared file
+#   2. consumer  — reads the sensor readings from the shared file
+#
+# Key concepts demonstrated:
+#   - Multiple services in one compose file
+#   - depends_on (consumer waits for producer to start)
+#   - Named volumes (shared data between services)
+#   - build context (each service has its own Dockerfile)
+#
+# Commands:
+#   docker compose up          — start both services (see logs)
+#   docker compose up -d       — start in background
+#   docker compose logs -f     — watch both services' logs
+#   docker compose logs -f producer   — watch only producer logs
+#   docker compose down        — stop and remove everything
+# ─────────────────────────────────────────────────────────────────
+
+version: "3.9"
+
+services:
+  # ──────────────────────────────────────────────
+  # Service 1: Producer
+  # Generates sensor readings and writes them to a shared volume
+  # ──────────────────────────────────────────────
+  producer:
+    # Build from the Dockerfile in the ./producer subdirectory
+    build: ./producer
+    container_name: sensor-producer
+    restart: always
+    environment:
+      - DATA_FILE=/shared/data.json
+    # Mount the named volume 'sensor_data' at /shared inside the container
+    volumes:
+      - sensor_data:/shared
+
+  # ──────────────────────────────────────────────
+  # Service 2: Consumer
+  # Reads sensor readings from the same shared volume
+  # ──────────────────────────────────────────────
+  consumer:
+    # Build from the Dockerfile in the ./consumer subdirectory
+    build: ./consumer
+    container_name: sensor-consumer
+    restart: always
+    # depends_on tells Docker Compose to start the producer FIRST
+    # Note: this only waits for the container to START, not for the
+    # service inside it to be READY. For production, use healthchecks.
+    depends_on:
+      - producer
+    environment:
+      - DATA_FILE=/shared/data.json
+    # Mount the SAME named volume — this is how they share data
+    volumes:
+      - sensor_data:/shared
+
+# ──────────────────────────────────────────────
+# Named volumes — Docker manages these
+# Data persists even when containers are removed
+# Both services mount this volume, so they can share files
+# ──────────────────────────────────────────────
+volumes:
+  sensor_data:
+    driver: local

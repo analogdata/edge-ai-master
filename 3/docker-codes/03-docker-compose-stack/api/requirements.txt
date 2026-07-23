@@ -1,0 +1,13 @@
+# Python dependencies for the FastAPI server
+# Used in the Docker Compose stack (Part 6)
+
+# FastAPI — modern web framework for building APIs
+fastapi>=0.115.0
+
+# Uvicorn — ASGI server to run FastAPI
+uvicorn[standard]>=0.30.0
+
+# paho-mqtt — subscribe to inference results from MQTT
+paho-mqtt>=2.1.0
+
+# SQLite is built into Python's standard library — no extra package needed

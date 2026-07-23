@@ -1,0 +1,13 @@
+# Python dependencies for the Edge AI inference engine
+# These are installed in the builder stage and copied to the runtime stage
+
+# MQTT client library — used to publish inference results to the broker
+paho-mqtt>=2.1.0
+
+# NumPy — used for array operations when processing model inputs/outputs
+numpy>=1.26.0
+
+# TensorFlow Lite runtime — runs the model on ARM64
+# On ARM64, this often needs to be compiled from source,
+# which is why the builder stage installs gcc and g++
+tflite-runtime>=2.14.0

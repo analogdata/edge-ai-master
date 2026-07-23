@@ -1,0 +1,35 @@
+# .dockerignore — Exclude files from the build context
+# Analog Data — EdgeAI Engineering Bootcamp (Part 9)
+#
+# Docker sends ALL files in the build context to the Docker daemon
+# before building. This file excludes files that should never be
+# in the image — especially .env (which contains secrets) and .git
+# (which can be very large).
+#
+# Place this file in the same folder as your Dockerfile.
+
+# Secrets — NEVER include these in a Docker image
+.env
+
+# Git repository — can be very large, not needed in the image
+.git
+
+# Python cache files — not needed, just wasted space
+__pycache__
+*.pyc
+*.egg-info
+
+# Virtual environments — dependencies are installed inside the container
+.venv
+venv/
+
+# Log files — not needed in the image
+*.log
+
+# Backup files — not needed in the image
+backups/
+
+# Docker files themselves — not needed inside the image
+Dockerfile
+docker-compose.yml
+.dockerignore

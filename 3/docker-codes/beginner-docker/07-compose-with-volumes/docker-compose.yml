@@ -1,0 +1,55 @@
+# ─────────────────────────────────────────────────────────────────
+# 07 — Compose with Volumes (Persistence)
+# Analog Data — EdgeAI Engineering Bootcamp
+#
+# This docker-compose.yml demonstrates TWO types of volumes:
+#
+#   1. Named volume (my_data)
+#      Docker manages it. Data persists across container restarts
+#      and even after `docker compose down`. Only `docker compose down -v`
+#      deletes it.
+#
+#   2. Bind mount (./config)
+#      Maps a directory on your host computer directly into the container.
+#      Changes on either side are immediately visible on the other.
+#      Great for development — edit files on your host, see changes
+#      inside the container instantly.
+#
+# Commands:
+#   docker compose up -d          — start in background
+#   docker compose logs -f        — watch logs
+#   docker compose down           — stop (volume data KEPT)
+#   docker compose down -v        — stop AND delete volume data
+#   docker volume ls              — list all Docker volumes
+# ─────────────────────────────────────────────────────────────────
+
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: volume-demo
+    restart: always
+    environment:
+      - DATA_FILE=/data/counter.txt
+    volumes:
+      # ──────────────────────────────────────────────
+      # Named volume — Docker manages the storage
+      # Format: <volume_name>:<container_path>
+      # Data survives container removal. Use `docker compose down -v`
+      # to delete the volume data.
+      # ──────────────────────────────────────────────
+      - my_data:/data
+
+      # ──────────────────────────────────────────────
+      # Bind mount — maps a host directory into the container
+      # Format: <host_path>:<container_path>
+      # Changes on either side are immediately visible.
+      # Great for config files or development.
+      # ──────────────────────────────────────────────
+      - ./config:/config
+
+# Named volumes — Docker creates and manages these
+volumes:
+  my_data:
+    driver: local
